@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Renovators | Premium Home Renovation in Georgia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        black: '#0a0a0a',
+                        dark: '#111111',
+                        darker: '#1a1a1a',
+                        medium: '#2a2a2a',
+                        light: '#e5e5e5',
+                        accent: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { cursor: default; }
+        a, button { cursor: pointer; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        
+        /* Smooth scroll behavior */
+        html { scroll-behavior: smooth; }
+        
+        /* Page loader */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: #222;
+            position: relative;
+            overflow: hidden;
+        }
+        .loader-bar::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+        @keyframes loading {
+            0% { left: -100%; }
+            50% { left: 0%; }
+            100% { left: 100%; }
+        }
+        
+        /* Magnetic button effect */
+        .magnetic-btn {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            z-index: 0;
+        }
+        .magnetic-btn:hover::before {
+            transform: translateY(0);
+        }
+        .magnetic-btn span {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s ease;
+        }
+        .magnetic-btn:hover span {
+            color: #0a0a0a;
+        }
+        
+        /* Text reveal animation */
+        .reveal-text {
+            overflow: hidden;
+        }
+        .reveal-text .text-inner {
+            transform: translateY(110%);
+            transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .reveal-text.revealed .text-inner {
+            transform: translateY(0);
+        }
+        
+        /* Fade up animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+        }
+        
+        /* Scale in animation */
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Slide in from left */
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Slide in from right */
+        .slide-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Stagger children */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-children.visible > *:nth-child(6) { transition-delay: 0.6s; }
+        .stagger-children.visible > * {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .stagger-children.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Parallax image */
+        .parallax-img {
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+        
+        /* Cursor dot */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            mix-blend-mode: difference;
+            transition: transform 0.15s ease;
+        }
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            mix-blend-mode: difference;
+            transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+        .cursor-ring.expanded {
+            width: 80px;
+            height: 80px;
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        /* Horizontal scroll line */
+        .scroll-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: scaleX(0);
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .scroll-line.visible {
+            transform: scaleX(1);
+        }
+        
+        /* Counter animation */
+        .counter {
+            display: inline-block;
+        }
+        
+        /* Image hover zoom */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom-container img {
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .img-zoom-container:hover img {
+            transform: scale(1.08);
+        }
+        
+        /* Marquee */
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Floating elements */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Pulse ring */
+        .pulse-ring {
+            animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(0.5); opacity: 1; }
+            80%, 100% { transform: scale(2); opacity: 0; }
+        }
+        
+        /* Nav glassmorphism */
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: white;
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+        
+        /* Service card hover */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: white;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .service-card:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Testimonial card */
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Before/After slider */
+        .ba-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        .ba-slider .ba-before {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+        .ba-slider .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: white;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        .ba-slider .ba-handle::before {
+            content: '⟨⟩';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: white;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            z-index: 9990;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* Noise overlay */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9996;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+        }
+        
+        /* Video overlay */
+        .video-overlay {
+            background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,1) 100%);
+        }
+        
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+        .accordion-icon {
+            transition: transform 0.4s ease;
+        }
+        
+        /* Glowing border */
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.05));
+            z-index: -1;
+        }
+        
+        /* Text stroke */
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            color: transparent;
+        }
+        
+        /* Smooth image reveal */
+        .img-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        .img-reveal::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #0a0a0a;
+            transform: scaleX(1);
+            transform-origin: right;
+            transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .img-reveal.visible::after {
+            transform: scaleX(0);
+        }
+
+        /* Typewriter */
+        .typewriter {
+            border-right: 2px solid white;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { border-color: white; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        /* Number counter styling */
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Smooth link underline */
+        .link-underline {
+            position: relative;
+        }
+        .link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: white;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .link-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Form input styling */
+        .form-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            outline: none;
+            color: white;
+            padding: 16px 0;
+            width: 100%;
+            font-size: 16px;
+            transition: border-color 0.4s ease;
+        }
+        .form-input:focus {
+            border-bottom-color: white;
+        }
+        .form-input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Project card */
+        .project-card {
+            position: relative;
+        }
+        .project-card .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        .project-card .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 32px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .project-card:hover .project-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Selection color */
+        ::selection {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-sans antialiased overflow-x-hidden">
+
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden lg:block" id="cursorDot"></div>
+    <div class="cursor-ring hidden lg:block" id="cursorRing"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="text-center">
+            <div class="text-sm tracking-[0.3em] uppercase text-gray-500 mb-8 font-light">GA Renovators</div>
+            <div class="loader-bar"></div>
+            <div class="text-xs tracking-[0.2em] uppercase text-gray-600 mt-4" id="loaderPercent">0%</div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu lg:hidden" id="mobileMenu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#home" class="text-3xl font-serif tracking-wide mobile-link">Home</a>
+            <a href="#about" class="text-3xl font-serif tracking-wide mobile-link">About</a>
+            <a href="#services" class="text-3xl font-serif tracking-wide mobile-link">Services</a>
+            <a href="#projects" class="text-3xl font-serif tracking-wide mobile-link">Projects</a>
+            <a href="#process" class="text-3xl font-serif tracking-wide mobile-link">Process</a>
+            <a href="#testimonials" class="text-3xl font-serif tracking-wide mobile-link">Testimonials</a>
+            <a href="#contact" class="text-3xl font-serif tracking-wide mobile-link">Contact</a>
+            <div class="pt-8">
+                <a href="tel:+14045551234" class="text-lg text-gray-400 tracking-wider">(404) 555-1234</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[9995] glass-nav transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between h-20 lg:h-24">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 border border-white/20 flex items-center justify-center group-hover:bg-white transition-all duration-500">
+                        <span class="text-sm font-bold tracking-wider group-hover:text-black transition-colors duration-500">GA</span>
+                    </div>
+                    <div class="hidden sm:block">
+                        <span class="text-sm font-semibold tracking-[0.15em] uppercase">Renovators</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-10">
+                    <a href="#about" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors duration-300 link-underline">About</a>
+                    <a href="#services" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors duration-300 link-underline">Services</a>
+                    <a href="#projects" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors duration-300 link-underline">Projects</a>
+                    <a href="#process" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors duration-300 link-underline">Process</a>
+                    <a href="#testimonials" class="text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors duration-300 link-underline">Reviews</a>
+                </div>
+
+                <!-- CTA + Mobile Toggle -->
+                <div class="flex items-center space-x-6">
+                    <a href="#contact" class="hidden lg:block magnetic-btn border border-white/30 px-8 py-3 text-xs tracking-[0.2em] uppercase hover:border-white transition-colors duration-300">
+                        <span>Get Quote</span>
+                    </a>
+                    <button id="menuToggle" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1.5 group">
+                        <span class="w-6 h-px bg-white transition-all duration-300 group-hover:w-4 menu-line-1"></span>
+                        <span class="w-6 h-px bg-white transition-all duration-300 menu-line-2"></span>
+                        <span class="w-4 h-px bg-white transition-all duration-300 group-hover:w-6 menu-line-3"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================ -->
+    <!--                    HERO                      -->
+    <!-- ============================================ -->
+    <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Background Video / Image -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80" alt="Luxury Home" class="w-full h-full object-cover parallax-img" id="heroImg">
+            <div class="video-overlay absolute inset-0"></div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 right-12 hidden lg:block fade-in" style="transition-delay: 2s;">
+            <div class="w-px h-32 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
+        </div>
+        <div class="absolute bottom-32 left-12 hidden lg:block fade-in" style="transition-delay: 2.2s;">
+            <div class="text-xs tracking-[0.3em] uppercase text-gray-500 rotate-[-90deg] origin-left">Scroll to explore</div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-24">
+            <div class="max-w-4xl">
+                <!-- Eyebrow -->
+                <div class="reveal-text mb-6">
+                    <div class="text-inner">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-px bg-white/40"></div>
+                            <span class="text-xs tracking-[0.4em] uppercase text-gray-400 font-light">Premium Renovation Studio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Heading -->
+                <div class="space-y-2 mb-8">
+                    <div class="reveal-text">
+                        <div class="text-inner">
+                            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold leading-[0.9] tracking-tight">
+                                We Build
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="reveal-text">
+                        <div class="text-inner" style="transition-delay: 0.15s;">
+                            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold leading-[0.9] tracking-tight">
+                                <span class="italic font-light">Dream</span> Homes
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtitle -->
+                <div class="reveal-text mb-12">
+                    <div class="text-inner" style="transition-delay: 0.3s;">
+                        <p class="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-xl">
+                            Georgia's premier home renovation firm. Transforming spaces with architectural precision and uncompromising craftsmanship since 2010.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="reveal-text">
+                    <div class="text-inner flex flex-col sm:flex-row gap-4" style="transition-delay: 0.45s;">
+                        <a href="#contact" class="magnetic-btn bg-white text-black px-10 py-5 text-xs tracking-[0.3em] uppercase font-semibold inline-flex items-center justify-center group">
+                            <span class="flex items-center gap-3">
+                                Start Your Project
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
+                        </a>
+                        <a href="#projects" class="magnetic-btn border border-white/30 px-10 py-5 text-xs tracking-[0.3em] uppercase font-medium inline-flex items-center justify-center">
+                            <span>View Our Work</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Stats -->
+            <div class="absolute bottom-12 right-6 lg:right-12 hidden md:block">
+                <div class="flex flex-col items-end space-y-8 fade-in" style="transition-delay: 1.5s;">
+                    <div class="text-right">
+                        <div class="text-4xl font-serif font-bold stat-number counter" data-target="500">0</div>
+                        <div class="text-xs tracking-[0.2em] uppercase text-gray-500 mt-1">Projects Done</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-4xl font-serif font-bold stat-number counter" data-target="14">0</div>
+                        <div class="text-xs tracking-[0.2em] uppercase text-gray-500 mt-1">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 fade-in" style="transition-delay: 2s;">
+            <div class="flex flex-col items-center space-y-2">
+                <div class="w-5 h-8 border border-white/30 rounded-full flex items-start justify-center p-1">
+                    <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--               MARQUEE BANNER                 -->
+    <!-- ============================================ -->
+    <section class="py-8 border-y border-white/5 overflow-hidden bg-dark">
+        <div class="marquee-track whitespace-nowrap">
+            <div class="flex items-center space-x-12 px-6">
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Kitchens</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Bathrooms</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Basements</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Full Home</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Additions</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Outdoor</span>
+                <span class="text-white/20">✦</span>
+            </div>
+            <div class="flex items-center space-x-12 px-6">
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Kitchens</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Bathrooms</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Basements</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Full Home</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Additions</span>
+                <span class="text-white/20">✦</span>
+                <span class="text-6xl md:text-8xl font-serif font-bold text-stroke">Outdoor</span>
+                <span class="text-white/20">✦</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                   ABOUT                      -->
+    <!-- ============================================ -->
+    <section id="about" class="py-32 lg:py-44 bg-black relative">
+        <!-- Background accent -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/[0.01] to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Left: Image Stack -->
+                <div class="relative">
+                    <div class="img-reveal scale-in">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Renovation Work" class="w-full aspect-[4/5] object-cover">
+                    </div>
+                    <!-- Floating card -->
+                    <div class="absolute -bottom-8 -right-4 lg:-right-12 bg-darker border border-white/10 p-8 float fade-up" style="transition-delay: 0.4s;">
+                        <div class="text-5xl font-serif font-bold mb-2">14+</div>
+                        <div class="text-xs tracking-[0.2em] uppercase text-gray-400">Years of<br>Excellence</div>
+                    </div>
+                    <!-- Decorative corner -->
+                    <div class="absolute -top-4 -left-4 w-16 h-16 border-t border-l border-white/10 fade-in"></div>
+                </div>
+
+                <!-- Right: Content -->
+                <div>
+                    <div class="fade-up">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-12 h-px bg-white/40"></div>
+                            <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Who We Are</span>
+                        </div>
+                    </div>
+
+                    <div class="fade-up" style="transition-delay: 0.1s;">
+                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-8">
+                            Crafting Spaces<br>
+                            <span class="italic font-light text-gray-400">That Inspire</span>
+                        </h2>
+                    </div>
+
+                    <div class="fade-up" style="transition-delay: 0.2s;">
+                        <p class="text-gray-400 text-lg leading-relaxed mb-6 font-light">
+                            GA Renovators is a full-service renovation firm based in Atlanta, Georgia. We specialize in transforming homes into masterpieces through meticulous design, expert craftsmanship, and an unwavering commitment to quality.
+                        </p>
+                    </div>
+
+                    <div class="fade-up" style="transition-delay: 0.3s;">
+                        <p class="text-gray-500 leading-relaxed mb-10">
+                            From concept to completion, our team of architects, designers, and master craftsmen work in harmony to deliver results that exceed expectations. Every nail, every tile, every finish — executed with precision.
+                        </p>
+                    </div>
+
+                    <!-- Key Points -->
+                    <div class="grid grid-cols-2 gap-6 mb-12 fade-up" style="transition-delay: 0.4s;">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Licensed & Insured</div>
+                                <div class="text-xs text-gray-500">Full Georgia licensing</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Award Winning</div>
+                                <div class="text-xs text-gray-500">Best of Houzz 2024</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Transparent Pricing</div>
+                                <div class="text-xs text-gray-500">No hidden costs ever</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">5-Year Warranty</div>
+                                <div class="text-xs text-gray-500">On all our work</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fade-up" style="transition-delay: 0.5s;">
+                        <a href="#contact" class="magnetic-btn inline-flex items-center gap-3 border border-white/30 px-10 py-5 text-xs tracking-[0.2em] uppercase group">
+                            <span>Learn More About Us</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--              STATS BANNER                    -->
+    <!-- ============================================ -->
+    <section class="py-20 lg:py-28 bg-darker border-y border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                <div class="text-center fade-up">
+                    <div class="text-5xl md:text-6xl font-serif font-bold mb-3 gradient-text">
+                        <span class="counter" data-target="500">0</span>+
+                    </div>
+                    <div class="text-xs tracking-[0.3em] uppercase text-gray-500">Projects Completed</div>
+                </div>
+                <div class="text-center fade-up" style="transition-delay: 0.15s;">
+                    <div class="text-5xl md:text-6xl font-serif font-bold mb-3 gradient-text">
+                        <span class="counter" data-target="98">0</span>%
+                    </div>
+                    <div class="text-xs tracking-[0.3em] uppercase text-gray-500">Client Satisfaction</div>
+                </div>
+                <div class="text-center fade-up" style="transition-delay: 0.3s;">
+                    <div class="text-5xl md:text-6xl font-serif font-bold mb-3 gradient-text">
+                        <span class="counter" data-target="35">0</span>+
+                    </div>
+                    <div class="text-xs tracking-[0.3em] uppercase text-gray-500">Expert Craftsmen</div>
+                </div>
+                <div class="text-center fade-up" style="transition-delay: 0.45s;">
+                    <div class="text-5xl md:text-6xl font-serif font-bold mb-3 gradient-text">
+                        $<span class="counter" data-target="75">0</span>M+
+                    </div>
+                    <div class="text-xs tracking-[0.3em] uppercase text-gray-500">Property Value Added</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                 SERVICES                     -->
+    <!-- ============================================ -->
+    <section id="services" class="py-32 lg:py-44 bg-black relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <!-- Section Header -->
+            <div class="text-center mb-24">
+                <div class="fade-up">
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="w-12 h-px bg-white/40"></div>
+                        <span class="text-xs tracking-[0.4em] uppercase text-gray-500">What We Do</span>
+                        <div class="w-12 h-px bg-white/40"></div>
+                    </div>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight">
+                        Our <span class="italic font-light">Services</span>
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.2s;">
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto mt-6 font-light">
+                        Comprehensive renovation solutions tailored to elevate every corner of your home.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-0">
+                <!-- Service 1 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Kitchen Renovation</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Custom cabinetry, premium countertops, modern appliance integration, and complete kitchen transformations.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.1s;">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Bathroom Remodel</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Spa-like retreats with designer tile, walk-in showers, freestanding tubs, and smart fixtures.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.2s;">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Basement Finishing</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Transform unused basements into entertainment rooms, home offices, guest suites, or home theaters.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Home Additions</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Seamless room additions, second stories, sunrooms, and garage conversions that blend perfectly.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.1s;">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Whole Home Remodel</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Complete interior and exterior transformations. New layouts, finishes, systems, and everything between.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card group p-10 lg:p-12 border border-white/5 hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.2s;">
+                    <div class="mb-8">
+                        <div class="w-14 h-14 border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-4">Outdoor Living</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Custom decks, patios, outdoor kitchens, pergolas, and landscape architecture for Georgia living.</p>
+                    <a href="#contact" class="text-xs tracking-[0.2em] uppercase flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+                        Learn More
+                        <svg class="w-4 h-4 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--           FEATURED PROJECT (LARGE)           -->
+    <!-- ============================================ -->
+    <section class="py-32 lg:py-44 bg-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 slide-left">
+                    <div class="img-zoom-container aspect-[16/10] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80" alt="Featured Project" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="lg:col-span-5 lg:pl-8">
+                    <div class="fade-up">
+                        <span class="text-xs tracking-[0.4em] uppercase text-gray-500 mb-4 block">Featured Project</span>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.1s;">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 leading-tight">
+                            Buckhead Estate<br><span class="italic font-light text-gray-400">Complete Revival</span>
+                        </h3>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.2s;">
+                        <p class="text-gray-400 leading-relaxed mb-8 font-light">
+                            A 6,200 sq ft Buckhead home transformed from a dated 1990s colonial into a contemporary masterpiece. Featuring an open-concept main floor, chef's kitchen, spa bathroom suite, and complete exterior facelift.
+                        </p>
+                    </div>
+                    <div class="fade-up grid grid-cols-3 gap-6 mb-10" style="transition-delay: 0.3s;">
+                        <div>
+                            <div class="text-2xl font-serif font-bold">6,200</div>
+                            <div class="text-xs text-gray-500 tracking-wider uppercase mt-1">Sq Feet</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif font-bold">4.5</div>
+                            <div class="text-xs text-gray-500 tracking-wider uppercase mt-1">Months</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-serif font-bold">$420K</div>
+                            <div class="text-xs text-gray-500 tracking-wider uppercase mt-1">Budget</div>
+                        </div>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.4s;">
+                        <a href="#projects" class="magnetic-btn inline-flex items-center gap-3 bg-white text-black px-10 py-5 text-xs tracking-[0.2em] uppercase font-semibold group">
+                            <span class="flex items-center gap-3">
+                                View Case Study
+                                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                 PROJECTS                     -->
+    <!-- ============================================ -->
+    <section id="projects" class="py-32 lg:py-44 bg-black">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <!-- Section Header -->
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-20">
+                <div>
+                    <div class="fade-up">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-12 h-px bg-white/40"></div>
+                            <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Our Portfolio</span>
+                        </div>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.1s;">
+                        <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight">
+                            Recent <span class="italic font-light">Projects</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="mt-6 lg:mt-0 fade-up" style="transition-delay: 0.2s;">
+                    <a href="#contact" class="magnetic-btn inline-flex items-center gap-3 border border-white/30 px-8 py-4 text-xs tracking-[0.2em] uppercase group">
+                        <span>View All Projects</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+                <!-- Project 1 -->
+                <div class="project-card img-zoom-container aspect-[4/3] relative group fade-up">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Kitchen Project" class="w-full h-full object-cover">
+                    <div class="project-overlay"></div>
+                    <div class="project-info">
+                        <span class="text-xs tracking-[0.3em] uppercase text-gray-400 mb-2 block">Kitchen Renovation</span>
+                        <h3 class="text-2xl font-serif font-bold">Midtown Modern Kitchen</h3>
+                        <p class="text-sm text-gray-400 mt-2">Complete gut renovation with custom Italian cabinetry</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card img-zoom-container aspect-[4/3] relative group fade-up" style="transition-delay: 0.15s;">
+                    <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80" alt="Bathroom Project" class="w-full h-full object-cover">
+                    <div class="project-overlay"></div>
+                    <div class="project-info">
+                        <span class="text-xs tracking-[0.3em] uppercase text-gray-400 mb-2 block">Bathroom Remodel</span>
+                        <h3 class="text-2xl font-serif font-bold">Druid Hills Spa Suite</h3>
+                        <p class="text-sm text-gray-400 mt-2">Master bath with heated floors and rain shower</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card img-zoom-container aspect-[4/3] relative group fade-up">
+                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80" alt="Living Room Project" class="w-full h-full object-cover">
+                    <div class="project-overlay"></div>
+                    <div class="project-info">
+                        <span class="text-xs tracking-[0.3em] uppercase text-gray-400 mb-2 block">Full Home Remodel</span>
+                        <h3 class="text-2xl font-serif font-bold">Virginia-Highland Craftsman</h3>
+                        <p class="text-sm text-gray-400 mt-2">Historic home modernization preserving character</p>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card img-zoom-container aspect-[4/3] relative group fade-up" style="transition-delay: 0.15s;">
+                    <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&q=80" alt="Basement Project" class="w-full h-full object-cover">
+                    <div class="project-overlay"></div>
+                    <div class="project-info">
+                        <span class="text-xs tracking-[0.3em] uppercase text-gray-400 mb-2 block">Basement Finish</span>
+                        <h3 class="text-2xl font-serif font-bold">Roswell Entertainment Suite</h3>
+                        <p class="text-sm text-gray-400 mt-2">Home theater, bar, and game room complex</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  PROCESS                     -->
+    <!-- ============================================ -->
+    <section id="process" class="py-32 lg:py-44 bg-darker relative overflow-hidden">
+        <!-- Background large number -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] md:text-[30rem] font-serif font-bold text-white/[0.015] pointer-events-none select-none">
+            04
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center mb-24">
+                <div class="fade-up">
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="w-12 h-px bg-white/40"></div>
+                        <span class="text-xs tracking-[0.4em] uppercase text-gray-500">How It Works</span>
+                        <div class="w-12 h-px bg-white/40"></div>
+                    </div>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight">
+                        Our <span class="italic font-light">Process</span>
+                    </h2>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.2s;">
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto mt-6 font-light">
+                        A proven 4-step methodology that delivers exceptional results, on time and on budget.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Process Steps -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-0">
+                <!-- Step 1 -->
+                <div class="relative p-10 lg:p-8 border border-white/5 group hover:bg-white/[0.02] transition-all duration-700 fade-up">
+                    <div class="text-6xl font-serif font-bold text-white/5 group-hover:text-white/10 transition-colors duration-700 mb-8">01</div>
+                    <h3 class="text-lg font-serif font-bold mb-4">Discovery & Design</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">We listen to your vision, assess your space, and create detailed 3D renderings of the transformation.</p>
+                    <div class="mt-8 w-full h-px bg-gradient-to-r from-white/20 to-transparent scroll-line"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative p-10 lg:p-8 border border-white/5 group hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.15s;">
+                    <div class="text-6xl font-serif font-bold text-white/5 group-hover:text-white/10 transition-colors duration-700 mb-8">02</div>
+                    <h3 class="text-lg font-serif font-bold mb-4">Planning & Permits</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Detailed project plans, material selection, permits handling, and a clear timeline with milestones.</p>
+                    <div class="mt-8 w-full h-px bg-gradient-to-r from-white/20 to-transparent scroll-line"></div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative p-10 lg:p-8 border border-white/5 group hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.3s;">
+                    <div class="text-6xl font-serif font-bold text-white/5 group-hover:text-white/10 transition-colors duration-700 mb-8">03</div>
+                    <h3 class="text-lg font-serif font-bold mb-4">Build & Craft</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Our master craftsmen execute with precision. Weekly updates, clean job sites, and quality checkpoints.</p>
+                    <div class="mt-8 w-full h-px bg-gradient-to-r from-white/20 to-transparent scroll-line"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative p-10 lg:p-8 border border-white/5 group hover:bg-white/[0.02] transition-all duration-700 fade-up" style="transition-delay: 0.45s;">
+                    <div class="text-6xl font-serif font-bold text-white/5 group-hover:text-white/10 transition-colors duration-700 mb-8">04</div>
+                    <h3 class="text-lg font-serif font-bold mb-4">Reveal & Warranty</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Final walkthrough, punch list completion, deep clean, and activation of your 5-year warranty.</p>
+                    <div class="mt-8 w-full h-px bg-gradient-to-r from-white/20 to-transparent scroll-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--       BEFORE/AFTER SHOWCASE                  -->
+    <!-- ============================================ -->
+    <section class="py-32 lg:py-44 bg-black relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                <!-- Content -->
+                <div class="order-2 lg:order-1">
+                    <div class="fade-up">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-12 h-px bg-white/40"></div>
+                            <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Transformations</span>
+                        </div>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.1s;">
+                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-8">
+                            See the <span class="italic font-light text-gray-400">Difference</span>
+                        </h2>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.2s;">
+                        <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light">
+                            Our renovations don't just update rooms — they transform lifestyles. Slide to reveal the dramatic before and after of a recent Alpharetta kitchen renovation.
+                        </p>
+                    </div>
+
+                    <!-- Highlights -->
+                    <div class="space-y-6 fade-up" style="transition-delay: 0.3s;">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span class="text-sm text-gray-300">$85,000 increase in home value</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span class="text-sm text-gray-300">Completed 2 weeks ahead of schedule</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span class="text-sm text-gray-300">Featured in Atlanta Home Magazine</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Before/After Slider -->
+                <div class="order-1 lg:order-2 fade-up">
+                    <div class="ba-slider aspect-[4/3] relative select-none" id="baSlider">
+                        <!-- After Image (background) -->
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" alt="After" class="w-full h-full object-cover absolute inset-0">
+                        <!-- Before Image (foreground, clipped) -->
+                        <div class="ba-before absolute inset-0" id="baBefore" style="width: 50%;">
+                            <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80" alt="Before" class="w-full h-full object-cover" style="min-width: calc(100% * 2);">
+                        </div>
+                        <!-- Handle -->
+                        <div class="ba-handle" id="baHandle" style="left: 50%;"></div>
+                        <!-- Labels -->
+                        <div class="absolute top-4 left-4 text-xs tracking-[0.2em] uppercase bg-black/60 px-3 py-1.5 backdrop-blur-sm">Before</div>
+                        <div class="absolute top-4 right-4 text-xs tracking-[0.2em] uppercase bg-white/80 text-black px-3 py-1.5 backdrop-blur-sm">After</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--              TESTIMONIALS                    -->
+    <!-- ============================================ -->
+    <section id="testimonials" class="py-32 lg:py-44 bg-darker relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <!-- Section Header -->
+            <div class="text-center mb-20">
+                <div class="fade-up">
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="w-12 h-px bg-white/40"></div>
+                        <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Client Stories</span>
+                        <div class="w-12 h-px bg-white/40"></div>
+                    </div>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight">
+                        What They <span class="italic font-light">Say</span>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- 5-Star Rating Display -->
+            <div class="text-center mb-16 fade-up" style="transition-delay: 0.2s;">
+                <div class="flex items-center justify-center gap-1 mb-3">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                </div>
+                <p class="text-sm text-gray-400">4.9 out of 5 based on 127 reviews</p>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-8 lg:p-10 rounded-sm fade-up hover:border-white/15 transition-colors duration-500">
+                    <div class="flex items-center gap-1 mb-6">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-8 text-sm">
+                        "GA Renovators transformed our dated kitchen into a stunning modern space. The attention to detail was extraordinary — from the custom millwork to the perfectly matched grout lines. They treated our home like it was their own."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-medium rounded-full flex items-center justify-center text-sm font-bold">SM</div>
+                        <div>
+                            <div class="text-sm font-semibold">Sarah Mitchell</div>
+                            <div class="text-xs text-gray-500">Buckhead, Atlanta</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-8 lg:p-10 rounded-sm fade-up" style="transition-delay: 0.15s;">
+                    <div class="flex items-center gap-1 mb-6">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-8 text-sm">
+                        "We interviewed five contractors before choosing GA Renovators for our whole-home remodel. Best decision we ever made. Professional, communicative, and the craftsmanship is museum-quality. Our home value increased by $150K."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-medium rounded-full flex items-center justify-center text-sm font-bold">JC</div>
+                        <div>
+                            <div class="text-sm font-semibold">James & Carol Thompson</div>
+                            <div class="text-xs text-gray-500">Alpharetta, GA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-8 lg:p-10 rounded-sm fade-up" style="transition-delay: 0.3s;">
+                    <div class="flex items-center gap-1 mb-6">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-8 text-sm">
+                        "From the first consultation to the final walk-through, GA Renovators exceeded every expectation. Our basement is now the most popular room in the house. The built-in bar and theater setup is absolutely incredible."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-medium rounded-full flex items-center justify-center text-sm font-bold">DW</div>
+                        <div>
+                            <div class="text-sm font-semibold">David Williams</div>
+                            <div class="text-xs text-gray-500">Roswell, GA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="flex flex-wrap items-center justify-center gap-12 mt-20 fade-up">
+                <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+                    <div class="text-xs tracking-[0.3em] uppercase">Google Reviews</div>
+                    <div class="text-lg font-bold mt-1">4.9 ★</div>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+                    <div class="text-xs tracking-[0.3em] uppercase">Houzz</div>
+                    <div class="text-lg font-bold mt-1">Best of 2024</div>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+                    <div class="text-xs tracking-[0.3em] uppercase">BBB Rating</div>
+                    <div class="text-lg font-bold mt-1">A+</div>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="text-center opacity-40 hover:opacity-100 transition-opacity duration-500">
+                    <div class="text-xs tracking-[0.3em] uppercase">Angi</div>
+                    <div class="text-lg font-bold mt-1">Super Service</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                    FAQ                       -->
+    <!-- ============================================ -->
+    <section class="py-32 lg:py-44 bg-black">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            <!-- Section Header -->
+            <div class="text-center mb-20">
+                <div class="fade-up">
+                    <div class="flex items-center justify-center space-x-4 mb-6">
+                        <div class="w-12 h-px bg-white/40"></div>
+                        <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Common Questions</span>
+                        <div class="w-12 h-px bg-white/40"></div>
+                    </div>
+                </div>
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight">
+                        Frequently <span class="italic font-light">Asked</span>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div class="space-y-0 fade-up" style="transition-delay: 0.2s;">
+                <div class="accordion-item active border-t border-white/10">
+                    <button class="accordion-trigger w-full flex items-center justify-between py-8 text-left group">
+                        <span class="text-lg font-serif font-medium pr-8 group-hover:text-gray-300 transition-colors">How long does a typical kitchen renovation take?</span>
+                        <span class="accordion-icon text-2xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-gray-400 text-sm leading-relaxed pb-8 pr-12">
+                            A typical kitchen renovation takes 6-12 weeks depending on scope. Minor remodels (cosmetic updates, new countertops, backsplash) take 4-6 weeks. Full gut renovations with layout changes, custom cabinetry, and appliance relocation take 10-14 weeks. We provide a detailed timeline during the planning phase.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-t border-white/10">
+                    <button class="accordion-trigger w-full flex items-center justify-between py-8 text-left group">
+                        <span class="text-lg font-serif font-medium pr-8 group-hover:text-gray-300 transition-colors">What areas of Georgia do you serve?</span>
+                        <span class="accordion-icon text-2xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-gray-400 text-sm leading-relaxed pb-8 pr-12">
+                            We serve the entire metro Atlanta area including Buckhead, Midtown, Virginia-Highland, Druid Hills, Decatur, Roswell, Alpharetta, Marietta, Johns Creek, Dunwoody, Sandy Springs, and surrounding communities within a 50-mile radius of downtown Atlanta.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-t border-white/10">
+                    <button class="accordion-trigger w-full flex items-center justify-between py-8 text-left group">
+                        <span class="text-lg font-serif font-medium pr-8 group-hover:text-gray-300 transition-colors">Do you offer financing options?</span>
+                        <span class="accordion-icon text-2xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-gray-400 text-sm leading-relaxed pb-8 pr-12">
+                            Yes! We partner with several lending institutions to offer competitive financing options. We offer 0% APR for 12 months on projects over $25,000, as well as extended financing up to 84 months. Our team can help you explore the best options during your consultation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-t border-white/10">
+                    <button class="accordion-trigger w-full flex items-center justify-between py-8 text-left group">
+                        <span class="text-lg font-serif font-medium pr-8 group-hover:text-gray-300 transition-colors">What is your warranty policy?</span>
+                        <span class="accordion-icon text-2xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-gray-400 text-sm leading-relaxed pb-8 pr-12">
+                            Every GA Renovators project comes with our comprehensive 5-year craftsmanship warranty covering all labor and installation. Materials carry their respective manufacturer warranties. We also offer an optional 10-year extended warranty for complete peace of mind.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-t border-b border-white/10">
+                    <button class="accordion-trigger w-full flex items-center justify-between py-8 text-left group">
+                        <span class="text-lg font-serif font-medium pr-8 group-hover:text-gray-300 transition-colors">Can I stay in my home during renovation?</span>
+                        <span class="accordion-icon text-2xl font-light flex-shrink-0">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <p class="text-gray-400 text-sm leading-relaxed pb-8 pr-12">
+                            For most projects, yes. We use dust barriers, maintain clean work zones, and schedule noisy work during convenient hours. For whole-home remodels or projects affecting critical areas (only bathroom, kitchen during meal times), we may recommend temporary relocation and can assist with arrangements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  CTA BANNER                  -->
+    <!-- ============================================ -->
+    <section class="py-32 lg:py-44 bg-dark relative overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1920&q=80" alt="CTA Background" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/90 to-dark"></div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center relative">
+            <div class="fade-up">
+                <div class="inline-flex items-center gap-2 border border-white/20 px-6 py-2 mb-10">
+                    <div class="relative">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <div class="w-2 h-2 bg-green-400 rounded-full absolute inset-0 pulse-ring"></div>
+                    </div>
+                    <span class="text-xs tracking-[0.3em] uppercase text-gray-400">Currently Accepting New Projects</span>
+                </div>
+            </div>
+            <div class="fade-up" style="transition-delay: 0.1s;">
+                <h2 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-tight mb-8">
+                    Ready to Transform<br>
+                    <span class="italic font-light">Your Home?</span>
+                </h2>
+            </div>
+            <div class="fade-up" style="transition-delay: 0.2s;">
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-12 font-light">
+                    Schedule a complimentary in-home consultation with our design team. We'll discuss your vision, assess your space, and provide a detailed proposal — all at no cost.
+                </p>
+            </div>
+            <div class="fade-up flex flex-col sm:flex-row gap-4 justify-center" style="transition-delay: 0.3s;">
+                <a href="#contact" class="magnetic-btn bg-white text-black px-12 py-5 text-xs tracking-[0.3em] uppercase font-semibold inline-flex items-center justify-center gap-3 group">
+                    <span class="flex items-center gap-3">
+                        Schedule Consultation
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </span>
+                </a>
+                <a href="tel:+14045551234" class="magnetic-btn border border-white/30 px-12 py-5 text-xs tracking-[0.3em] uppercase inline-flex items-center justify-center gap-3">
+                    <span class="flex items-center gap-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        (404) 555-1234
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  CONTACT                     -->
+    <!-- ============================================ -->
+    <section id="contact" class="py-32 lg:py-44 bg-black">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+                <!-- Left: Contact Info -->
+                <div>
+                    <div class="fade-up">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-12 h-px bg-white/40"></div>
+                            <span class="text-xs tracking-[0.4em] uppercase text-gray-500">Get In Touch</span>
+                        </div>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.1s;">
+                        <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-8">
+                            Let's Start<br>
+                            <span class="italic font-light text-gray-400">Building</span>
+                        </h2>
+                    </div>
+                    <div class="fade-up" style="transition-delay: 0.2s;">
+                        <p class="text-gray-400 text-lg leading-relaxed mb-12 font-light">
+                            Whether you have a clear vision or need inspiration, our team is ready to help bring your dream home to life.
+                        </p>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="space-y-8 fade-up" style="transition-delay: 0.3s;">
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Visit Our Studio</div>
+                                <div class="text-sm text-gray-400">1234 Peachtree Street NW<br>Atlanta, GA 30309</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Call Us</div>
+                                <div class="text-sm text-gray-400">(404) 555-1234</div>
+                                <div class="text-xs text-gray-500 mt-1">Mon–Fri 8am–6pm, Sat 9am–2pm</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-6 group">
+                            <div class="w-12 h-12 border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:bg-white group-hover:text-black transition-all duration-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold mb-1">Email Us</div>
+                                <div class="text-sm text-gray-400">hello@garenovators.com</div>
+                                <div class="text-xs text-gray-500 mt-1">We respond within 2 hours</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex items-center space-x-4 mt-12 fade-up" style="transition-delay: 0.4s;">
+                        <a href="#" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 group">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 group">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 group">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all duration-500 group">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="fade-up" style="transition-delay: 0.2s;">
+                    <div class="bg-darker border border-white/5 p-8 lg:p-12">
+                        <h3 class="text-2xl font-serif font-bold mb-2">Free Consultation</h3>
+                        <p class="text-sm text-gray-500 mb-10">Fill out the form below and we'll get back to you within 2 hours.</p>
+
+                        <form class="space-y-8" id="contactForm">
+                            <div class="grid sm:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">First Name *</label>
+                                    <input type="text" class="form-input" placeholder="John" required>
+                                </div>
+                                <div>
+                                    <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">Last Name *</label>
+                                    <input type="text" class="form-input" placeholder="Smith" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">Email Address *</label>
+                                <input type="email" class="form-input" placeholder="john@example.com" required>
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">Phone Number</label>
+                                <input type="tel" class="form-input" placeholder="(404) 555-0000">
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">Project Type</label>
+                                <select class="form-input bg-transparent appearance-none" style="background-image: url('data:image/svg+xml;utf8,<svg fill=\'%23666\' viewBox=\'0 0 24 24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>'); background-repeat: no-repeat; background-position: right 0 center; background-size: 24px;">
+                                    <option value="" class="bg-dark">Select a service</option>
+                                    <option value="kitchen" class="bg-dark">Kitchen Renovation</option>
+                                    <option value="bathroom" class="bg-dark">Bathroom Remodel</option>
+                                    <option value="basement" class="bg-dark">Basement Finishing</option>
+                                    <option value="addition" class="bg-dark">Home Addition</option>
+                                    <option value="whole" class="bg-dark">Whole Home Remodel</option>
+                                    <option value="outdoor" class="bg-dark">Outdoor Living</option>
+                                    <option value="other" class="bg-dark">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs tracking-[0.2em] uppercase text-gray-500 mb-2 block">Tell Us About Your Project</label>
+                                <textarea class="form-input resize-none" rows="4" placeholder="Describe your dream renovation..."></textarea>
+                            </div>
+                            <button type="submit" class="magnetic-btn w-full bg-white text-black py-5 text-xs tracking-[0.3em] uppercase font-semibold">
+                                <span>Request Free Consultation</span>
+                            </button>
+                            <p class="text-xs text-gray-600 text-center">By submitting, you agree to our privacy policy. No spam, ever.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--                  FOOTER                      -->
+    <!-- ============================================ -->
+    <footer class="bg-darker border-t border-white/5">
+        <!-- Main Footer -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 border border-white/20 flex items-center justify-center">
+                            <span class="text-sm font-bold tracking-wider">GA</span>
+                        </div>
+                        <span class="text-sm font-semibold tracking-[0.15em] uppercase">Renovators</span>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-6">
+                        Georgia's premier home renovation firm. Transforming houses into dream homes since 2010.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                        <span class="text-xs text-gray-500">Accepting new projects</span>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xs tracking-[0.3em] uppercase font-semibold mb-6">Navigation</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Home</a></li>
+                        <li><a href="#about" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">About Us</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Services</a></li>
+                        <li><a href="#projects" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Portfolio</a></li>
+                        <li><a href="#process" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Our Process</a></li>
+                        <li><a href="#testimonials" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Testimonials</a></li>
+                        <li><a href="#contact" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-xs tracking-[0.3em] uppercase font-semibold mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Kitchen Renovation</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Bathroom Remodel</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Basement Finishing</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Home Additions</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Whole Home Remodel</a></li>
+                        <li><a href="#services" class="text-sm text-gray-500 hover:text-white transition-colors link-underline">Outdoor Living</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xs tracking-[0.3em] uppercase font-semibold mb-6">Contact</h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <div class="text-sm text-gray-500">1234 Peachtree Street NW</div>
+                            <div class="text-sm text-gray-500">Atlanta, GA 30309</div>
+                        </li>
+                        <li>
+                            <a href="tel:+14045551234" class="text-sm text-gray-500 hover:text-white transition-colors">(404) 555-1234</a>
+                        </li>
+                        <li>
+                            <a href="mailto:hello@garenovators.com" class="text-sm text-gray-500 hover:text-white transition-colors">hello@garenovators.com</a>
+                        </li>
+                        <li class="pt-2">
+                            <div class="text-xs text-gray-600">Mon–Fri: 8am–6pm</div>
+                            <div class="text-xs text-gray-600">Sat: 9am–2pm</div>
+                            <div class="text-xs text-gray-600">Sun: Closed</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-gray-600">
+                    © 2024 GA Renovators. All rights reserved. Licensed & Insured in Georgia.
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-xs text-gray-600 hover:text-gray-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-gray-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="text-xs text-gray-600 hover:text-gray-400 transition-colors">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-white text-black flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 hover:scale-110 z-50">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <!-- ============================================ -->
+    <!--               JAVASCRIPT                     -->
+    <!-- ============================================ -->
+    <script>
+        // ========== PAGE LOADER ==========
+        let loadPercent = 0;
+        const loaderInterval = setInterval(() => {
+            loadPercent += Math.random() * 15;
+            if (loadPercent >= 100) loadPercent = 100;
+            document.getElementById('loaderPercent').textContent = Math.floor(loadPercent) + '%';
+            if (loadPercent >= 100) clearInterval(loaderInterval);
+        }, 100);
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('hidden');
+                // Trigger hero animations
+                document.querySelectorAll('.reveal-text').forEach((el, i) => {
+                    setTimeout(() => el.classList.add('revealed'), i * 100);
+                });
+                document.querySelectorAll('#home .fade-in').forEach((el) => {
+                    el.classList.add('visible');
+                });
+            }, 1800);
+        });
+
+        // ========== CUSTOM CURSOR ==========
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX - 4 + 'px';
+            dot.style.top = mouseY - 4 + 'px';
+        });
+
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = ringX - 20 + 'px';
+            ring.style.top = ringY - 20 + 'px';
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Expand cursor on hover elements
+        document.querySelectorAll('a, button, .magnetic-btn, .project-card, .service-card').forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('expanded'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('expanded'));
+        });
+
+        // ========== PROGRESS BAR ==========
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+
+        // ========== NAVBAR SCROLL EFFECT ==========
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 100) {
+                navbar.style.transform = currentScroll > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+            
+            // Animate hamburger
+            const lines = menuToggle.querySelectorAll('span');
+            if (menuOpen) {
+                lines[0].style.transform = 'rotate(45deg) translateY(4px) translateX(4px)';
+                lines[0].style.width = '24px';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translateY(-4px) translateX(4px)';
+                lines[2].style.width = '24px';
+            } else {
+                lines[0].style.transform = 'none';
+                lines[1].style.opacity = '1';
+                lines[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+                const lines = menuToggle.querySelectorAll('span');
+                lines[0].style.transform = 'none';
+                lines[1].style.opacity = '1';
+                lines[2].style.transform = 'none';
+            });
+        });
+
+        // ========== SCROLL ANIMATIONS ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up, .fade-in, .scale-in, .slide-left, .slide-right, .scroll-line, .img-reveal, .stagger-children, .reveal-text').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========== COUNTER ANIMATION ==========
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.floor(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    updateCounter();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+        // ========== PARALLAX EFFECT ==========
+        window.addEventListener('scroll', () => {
+            const heroImg = document.getElementById('heroImg');
+            if (heroImg) {
+                const scrolled = window.scrollY;
+                heroImg.style.transform = `translateY(${scrolled * 0.3}px) scale(1.1)`;
+            }
+        });
+
+        // ========== BEFORE/AFTER SLIDER ==========
+        const baSlider = document.getElementById('baSlider');
+        const baBefore = document.getElementById('baBefore');
+        const baHandle = document.getElementById('baHandle');
+
+        if (baSlider) {
+            let isDragging = false;
+
+            const updateSlider = (x) => {
+                const rect = baSlider.getBoundingClientRect();
+                let pos = ((x - rect.left) / rect.width) * 100;
+                pos = Math.max(5, Math.min(95, pos));
+                baBefore.style.width = pos + '%';
+                baHandle.style.left = pos + '%';
+            };
+
+            baSlider.addEventListener('mousedown', (e) => { isDragging = true; updateSlider(e.clientX); });
+            window.addEventListener('mousemove', (e) => { if (isDragging) updateSlider(e.clientX); });
+            window.addEventListener('mouseup', () => isDragging = false);
+
+            baSlider.addEventListener('touchstart', (e) => { isDragging = true; updateSlider(e.touches[0].clientX); });
+            window.addEventListener('touchmove', (e) => { if (isDragging) updateSlider(e.touches[0].clientX); });
+            window.addEventListener('touchend', () => isDragging = false);
+        }
+
+        // ========== ACCORDION ==========
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.closest('.accordion-item');
+                const wasActive = item.classList.contains('active');
+                
+                // Close all
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+                
+                // Open clicked if it wasn't active
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+
+        // ========== BACK TO TOP ==========
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.style.opacity = '1';
+                backToTop.style.pointerEvents = 'auto';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.pointerEvents = 'none';
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ========== FORM SUBMISSION ==========
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>Sending...</span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span>✓ Message Sent Successfully!</span>';
+                btn.style.background = '#22c55e';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'white';
+                    btn.disabled = false;
+                    e.target.reset();
+                }, 3000);
+            }, 1500);
+        });
+
+        // ========== SMOOTH ANCHOR SCROLLING ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - offset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ========== MAGNETIC BUTTON EFFECT ==========
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+    </script>
+</body>
+</html>
